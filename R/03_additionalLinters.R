@@ -23,7 +23,7 @@
 #'                     "print(INWTUtils:::scriptLinters())"))
 #' # nolint end
 #' lintr::lint("lintExample.txt",
-#'      linters = list(argsWithoutDefault = args_without_default_first_linter,
+#'      linters = list(argsWithoutDefault = args_no_default_first_linter,
 #'                     doubeWhitespace = double_space_linter,
 #'                     sourceLinter = source_linter))
 #' }
@@ -34,7 +34,7 @@ NULL
 #' @describeIn INWTLinters Arguments without default values should come before
 #' arguments with default values.
 #' @export
-args_without_default_first_linter <- function(source_file) {
+args_no_default_first_linter <- function(source_file) {
 
   pattern <- paste0("function\\([^\\)]*[A-z0-9_\\. '\"]+=[A-z0-9_\\. '\"]+,",
                     "[ ]*",
@@ -69,11 +69,11 @@ args_without_default_first_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          message = "Arguments without default value should be listed before
          arguments with default value.",
-         linter = "args_without_default_first_linter")
+         linter = "args_no_default_first_linter")
   })
 }
 
@@ -94,7 +94,7 @@ double_space_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          message = "Double whitespace.",
          linter = "double_space_linter")
@@ -116,7 +116,7 @@ internal_function_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          # nolint start
          message = "Internal functions (addressed via :::) should not be used.",
@@ -139,7 +139,7 @@ setwd_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          message = "Avoid side effects caused by setwd.",
          linter = "setwd_linter")
@@ -160,7 +160,7 @@ source_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          message = "Don't use source in package functions.",
          linter = "source_linter")
@@ -182,7 +182,7 @@ options_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          message = "Don't use options() in package functions.",
          linter = "options_linter")
@@ -203,7 +203,7 @@ sapply_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          message = paste("Don't use sapply. It can simplify the output in an",
                          "unexpected way. Choose lapply."),
@@ -228,7 +228,7 @@ trailing_whitespaces_linter <- function(source_file) {
   lapply(ids, function(id) {
     Lint(filename = source_file$filename,
          line_number = id,
-         column_number = NULL,
+         column_number = 1L,
          type = "style",
          message = "Trailing whitespaces.",
          linter = "trailing_whitespaces_linter")

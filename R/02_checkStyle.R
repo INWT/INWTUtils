@@ -24,7 +24,7 @@
 #'                     "  2*x + 1",
 #'                     "}",
 #'                     "",
-#'                     paste0("# This  line containts  double spaces and is ",
+#'                     paste0("# This  line contains  double spaces and is ",
 #'                            "very long. The following lines will use = ",
 #'                            "instead of <- and access an internal INWT ",
 #'                            "function."),
@@ -64,7 +64,7 @@ checkStyle <- function(files,
 #'
 #' @details The following linters are always included:
 #' \itemize{
-#'   \item\code{\link[INWTUtils]{args_without_default_first_linter}},
+#'   \item\code{\link[INWTUtils]{args_no_default_first_linter}},
 #'   \item\code{\link[lintr]{assignment_linter}},
 #'   \item\code{\link[lintr]{commas_linter}},
 #'   \item\code{\link[INWTUtils]{double_space_linter}},
@@ -100,7 +100,7 @@ checkStyle <- function(files,
 #' @examples
 #' selectLinters(type = "script",
 #'             excludeLinters = c("object_length_linter",
-#'                                "args_without_default_first_linter"),
+#'                                "args_no_default_first_linter"),
 #'             addLinters = list(setwd_l = setwd_linter,
 #'                               source_l = source_linter))
 #'
@@ -116,7 +116,6 @@ checkStyle <- function(files,
 #'     paste0("  \\item\\code{\\link[", packages, "]{", linterNames, "}}",
 #'            collapse = ",\n#' "), "\n#' }")
 #' # nolint end
-
 #'
 #' @export
 #'
@@ -141,8 +140,7 @@ selectLinters <- function(type = NULL,
 #' General linters
 #' @description Linters used by default
 generalLinters <- function() {
-  list(args_without_default_first_linter =
-         args_without_default_first_linter,
+  list(args_no_default_first_linter = args_no_default_first_linter,
        assignment_linter = assignment_linter,
        commas_linter = commas_linter,
        double_space_linter = double_space_linter,
@@ -173,3 +171,6 @@ pkgFunLinters <- function() {
 scriptLinters <- function() {
   list()
 }
+
+
+

@@ -4,8 +4,7 @@
 \alias{mode}
 \title{Mode}
 \usage{
-mode(x, notUniqueVal = "notUnique", naVal = "allNA",
-  emptyVal = "noValues")
+mode(x, notUniqueVal = "notUnique", naVal = "allNA", emptyVal = "noValues")
 }
 \arguments{
 \item{x}{Vector}

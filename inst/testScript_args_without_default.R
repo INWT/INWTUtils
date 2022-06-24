@@ -1,6 +1,6 @@
 # This script contains functions with correct or incorrect argument order
 # (arguments without default should be listed first). It is used to test
-# args_without_default_first_linter().
+# args_no_default_first_linter().
 
 
 ### Functions with incorrect argument order (args with default first)

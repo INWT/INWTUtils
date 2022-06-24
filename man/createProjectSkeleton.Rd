@@ -4,8 +4,14 @@
 \alias{createProjectSkeleton}
 \title{Create file structure}
 \usage{
-createProjectSkeleton(dir = ".", pkgName = NULL, pkgFolder = ".",
-  rProject = TRUE, exampleScript = TRUE, ...)
+createProjectSkeleton(
+  dir = ".",
+  pkgName = NULL,
+  pkgFolder = ".",
+  rProject = TRUE,
+  exampleScript = TRUE,
+  ...
+)
 }
 \arguments{
 \item{dir}{character: Directory where the file structure is created, absolute
