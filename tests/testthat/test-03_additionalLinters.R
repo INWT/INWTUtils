@@ -4,7 +4,7 @@ test_that("args_no_default_first_linter", {
   testFile <- system.file("testScript_args_without_default.R", package = "INWTUtils")
   expect_true(file.exists(testFile))
   erg <- lint(testFile,
-              linters = list(argsWithoutDefault = args_no_default_first_linter))
+              linters = list(args_no_default_first_linter()))
   expect_equal(lapply(erg, function(lint) lint$line_number) %>% unlist,
                c(9, 13, 15, 19, 23, 26, 29, 33))
 })
@@ -28,13 +28,13 @@ test_that("args_no_default_first_linter (only within line)", {
                                       "function(arg1, arg2)",
                                       "function(arg1, arg2 = 1, ...)",
                                       "function(arg1 = TRUE, ...)"))
-  expect_true(lapply(args_no_default_first_linter(inputWrong),
+  expect_true(lapply(args_no_default_first_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(args_no_default_first_linter(inputWrong) %>% length,
+  expect_equal(args_no_default_first_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(args_no_default_first_linter(inputCorrect),
+  expect_true(lapply(args_no_default_first_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(args_no_default_first_linter(inputCorrect) %>% length, 0)
+  expect_equal(args_no_default_first_linter()(inputCorrect) %>% length, 0)
 })
 
 
@@ -65,13 +65,13 @@ test_that("double_space_linter", {
                                       "#'   \"# This is an example document violating style conventions\",",
                                       "#   \"# This is an example document violating style conventions\","))
   # nolint end
-  expect_true(lapply(double_space_linter(inputWrong),
+  expect_true(lapply(double_space_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(double_space_linter(inputWrong) %>% length,
+  expect_equal(double_space_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(double_space_linter(inputCorrect),
+  expect_true(lapply(double_space_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(double_space_linter(inputCorrect) %>% length, 0)
+  expect_equal(double_space_linter()(inputCorrect) %>% length, 0)
 })
 
 
@@ -89,13 +89,13 @@ test_that("internal_function_linter", {
                                       "# somePkg:::someFun",
                                       "#' @examples INWTpkg:::someFun",
                                       "#' INWTpkg:::someFun"))
-  expect_true(lapply(internal_function_linter(inputWrong),
+  expect_true(lapply(internal_function_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(internal_function_linter(inputWrong) %>% length,
+  expect_equal(internal_function_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(internal_function_linter(inputCorrect),
+  expect_true(lapply(internal_function_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(internal_function_linter(inputCorrect) %>% length, 0)
+  expect_equal(internal_function_linter()(inputCorrect) %>% length, 0)
 })
 
 
@@ -110,13 +110,13 @@ test_that("setwd_linter", {
                        file_lines = c("# Comment with the word setwd",
                                       "#' Roxygen comment containing setwd",
                                       "some code 123 # comment with setwd("))
-  expect_true(lapply(setwd_linter(inputWrong),
+  expect_true(lapply(setwd_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(setwd_linter(inputWrong) %>% length,
+  expect_equal(setwd_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(setwd_linter(inputCorrect),
+  expect_true(lapply(setwd_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(setwd_linter(inputCorrect) %>% length, 0)
+  expect_equal(setwd_linter()(inputCorrect) %>% length, 0)
 })
 
 
@@ -133,13 +133,13 @@ test_that("source_linter", {
                                       "some code 123 # comment with source(",
                                       paste0("PackageInstallArgs: --no-multiarch",
                                              "--with-keep.source")))
-  expect_true(lapply(source_linter(inputWrong),
+  expect_true(lapply(source_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(source_linter(inputWrong) %>% length,
+  expect_equal(source_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(source_linter(inputCorrect),
+  expect_true(lapply(source_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(source_linter(inputCorrect) %>% length, 0)
+  expect_equal(source_linter()(inputCorrect) %>% length, 0)
 })
 
 
@@ -154,13 +154,13 @@ test_that("options_linter", {
                        file_lines = c("# Comment with the word options",
                                       "#' Roxygen comment containing options",
                                       "some code 123 # comment with options("))
-  expect_true(lapply(options_linter(inputWrong),
+  expect_true(lapply(options_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(options_linter(inputWrong) %>% length,
+  expect_equal(options_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(options_linter(inputCorrect),
+  expect_true(lapply(options_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(options_linter(inputCorrect) %>% length, 0)
+  expect_equal(options_linter()(inputCorrect) %>% length, 0)
 })
 
 
@@ -174,13 +174,13 @@ test_that("sapply_linter", {
                                       "'sapply('",
                                       '"sapply(',
                                       "some code # sapply("))
-  expect_true(lapply(sapply_linter(inputWrong),
+  expect_true(lapply(sapply_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(sapply_linter(inputWrong) %>% length,
+  expect_equal(sapply_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(sapply_linter(inputCorrect),
+  expect_true(lapply(sapply_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(sapply_linter(inputCorrect) %>% length, 0)
+  expect_equal(sapply_linter()(inputCorrect) %>% length, 0)
 
 })
 
@@ -202,11 +202,11 @@ test_that("trailing_whitespaces_linter", {
                                       "    ",
                                       "   ",
                                       "  "))
-  expect_true(lapply(trailing_whitespaces_linter(inputWrong),
+  expect_true(lapply(trailing_whitespaces_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(trailing_whitespaces_linter(inputWrong) %>% length,
+  expect_equal(trailing_whitespaces_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(trailing_whitespaces_linter(inputCorrect),
+  expect_true(lapply(trailing_whitespaces_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(trailing_whitespaces_linter(inputCorrect) %>% length, 0)
+  expect_equal(trailing_whitespaces_linter()(inputCorrect) %>% length, 0)
 })

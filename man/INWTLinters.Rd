@@ -12,24 +12,21 @@
 \alias{trailing_whitespaces_linter}
 \title{INWT's own linters}
 \usage{
-args_no_default_first_linter(source_file)
+args_no_default_first_linter()
 
-double_space_linter(source_file)
+double_space_linter()
 
-internal_function_linter(source_file)
+internal_function_linter()
 
-setwd_linter(source_file)
+setwd_linter()
 
-source_linter(source_file)
+source_linter()
 
-options_linter(source_file)
+options_linter()
 
-sapply_linter(source_file)
+sapply_linter()
 
-trailing_whitespaces_linter(source_file)
-}
-\arguments{
-\item{source_file}{returned by \code{\link[lintr]{get_source_expressions}}}
+trailing_whitespaces_linter()
 }
 \description{
 Linters added by INWT. Usually not called directly but used
