@@ -14,7 +14,7 @@ Depends:
     R (>= 3.5)
 Imports:
     devtools (>= 2.4.3),
-    lintr (>= 2.0.1),
+    lintr (>= 3.0.0),
     magrittr (>= 2.0.3),
     readr (>= 2.1.2),
     usethis (>= 2.1.5)
