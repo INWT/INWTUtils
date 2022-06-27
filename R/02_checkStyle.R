@@ -170,6 +170,3 @@ pkgFunLinters <- function() {
 scriptLinters <- function() {
   list()
 }
-
-
-

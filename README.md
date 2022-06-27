@@ -99,7 +99,7 @@ shown in figure 2:
 ```r
 createProjectSkeleton(dir = "playWith",
                       pkgName = "playPkg",
-                      pkgFolder = "." # Default, could be left out
+                      pkgFolder = ".", # Default, could be left out
                       rProject = FALSE,
                       exampleScript = FALSE)
 ```
