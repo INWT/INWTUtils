@@ -5,8 +5,6 @@
 #' @description Linters added by INWT. Usually not called directly but used
 #' with \code{\link[lintr]{lint}}.
 #'
-#' @param source_file returned by \code{\link[lintr]{get_source_expressions}}
-#'
 #' @examples \dontrun{
 #' writeLines(con = "lintExample.txt",
 #' # nolint start
@@ -34,7 +32,9 @@ NULL
 #' @describeIn INWTLinters Arguments without default values should come before
 #' arguments with default values.
 #' @export
-args_no_default_first_linter <- function(source_file) {
+args_no_default_first_linter <- function() {
+
+  Linter(function(source_file) {
 
   pattern <- paste0("function\\([^\\)]*[A-z0-9_\\. '\"]+=[A-z0-9_\\. '\"]+,",
                     "[ ]*",
@@ -72,15 +72,16 @@ args_no_default_first_linter <- function(source_file) {
          column_number = 1L,
          type = "style",
          message = "Arguments without default value should be listed before
-         arguments with default value.",
-         linter = "args_no_default_first_linter")
-  })
+         arguments with default value.")
+  })},
+  "args_no_default_first_linter")
 }
 
 
 #' @describeIn INWTLinters Are there double whitespaces?
 #' @export
-double_space_linter <- function(source_file) {
+double_space_linter <- function() {
+  Linter(function(source_file) {
 
   ids <- grep("([^#' ]+.*[^ ]+ {2,}[^( +#$)])|(^# \\w {2,})",
               source_file$file_lines)
@@ -96,9 +97,9 @@ double_space_linter <- function(source_file) {
          line_number = id,
          column_number = 1L,
          type = "style",
-         message = "Double whitespace.",
-         linter = "double_space_linter")
-  })
+         message = "Double whitespace.")
+  })},
+  "double_space_linter")
 }
 
 
@@ -107,7 +108,8 @@ double_space_linter <- function(source_file) {
 #' They may not have been tested outside the context of the function they are
 #' used in.
 #' @export
-internal_function_linter <- function(source_file) {
+internal_function_linter <- function() {
+  Linter(function(source_file) {
 
   # nolint start
   ids <- grep(paste0(exceptInComments(), ":::"), source_file$file_lines)
@@ -119,17 +121,18 @@ internal_function_linter <- function(source_file) {
          column_number = 1L,
          type = "style",
          # nolint start
-         message = "Internal functions (addressed via :::) should not be used.",
+         message = "Internal functions (addressed via :::) should not be used.")
          # nolint end
-         linter = "internal_function_linter")
-  })
+  })},
+  "internal_function_linter")
 }
 
 
 #' @describeIn INWTLinters Changing the working directory in package functions
 #' can have unexpected side effects. (only for package functions)
 #' @export
-setwd_linter <- function(source_file) {
+setwd_linter <- function() {
+  Linter(function(source_file) {
 
   ids <- grep(paste0(exceptInComments(), "setwd\\("), source_file$file_lines)
   # Starting with arbitrary number of characters which are NOT # or quotes (to
@@ -141,16 +144,17 @@ setwd_linter <- function(source_file) {
          line_number = id,
          column_number = 1L,
          type = "style",
-         message = "Avoid side effects caused by setwd.",
-         linter = "setwd_linter")
-  })
+         message = "Avoid side effects caused by setwd.")
+  })},
+  "setwd_linter")
 }
 
 
 #' @describeIn INWTLinters Sourcing files in package functions can have
 #' unexpected side effects. (only for package functions)
 #' @export
-source_linter <- function(source_file) {
+source_linter <- function() {
+  Linter(function(source_file) {
 
   ids <- grep(paste0(exceptInComments(), "source\\("), source_file$file_lines)
   # Starting with arbitrary number of characters which are NOT # or quotes (to
@@ -162,9 +166,9 @@ source_linter <- function(source_file) {
          line_number = id,
          column_number = 1L,
          type = "style",
-         message = "Don't use source in package functions.",
-         linter = "source_linter")
-  })
+         message = "Don't use source in package functions.")
+  })},
+  "source_linter")
 }
 
 
@@ -172,7 +176,8 @@ source_linter <- function(source_file) {
 #' unexpected side effects and is not visible from the outside. (only for
 #' package functions)
 #' @export
-options_linter <- function(source_file) {
+options_linter <- function() {
+  Linter(function(source_file) {
 
   ids <- grep(paste0(exceptInComments(), "options\\("), source_file$file_lines)
   # Starting with arbitrary number of characters which are NOT # or quotes (to
@@ -184,9 +189,9 @@ options_linter <- function(source_file) {
          line_number = id,
          column_number = 1L,
          type = "style",
-         message = "Don't use options() in package functions.",
-         linter = "options_linter")
-  })
+         message = "Don't use options() in package functions.")
+  })},
+  "options_linter")
 }
 
 
@@ -196,7 +201,8 @@ options_linter <- function(source_file) {
 #' \code{\link[base]{sapply}}. If you use \code{sapply} with
 #' \code{simplify = FALSE}, it is equivalent to \code{lapply} anyway.
 #' @export
-sapply_linter <- function(source_file) {
+sapply_linter <- function() {
+  Linter(function(source_file) {
 
   ids <- grep(paste0(exceptInComments(), "sapply\\("), source_file$file_lines)
 
@@ -206,9 +212,9 @@ sapply_linter <- function(source_file) {
          column_number = 1L,
          type = "style",
          message = paste("Don't use sapply. It can simplify the output in an",
-                         "unexpected way. Choose lapply."),
-         linter = "sapply_linter")
-  })
+                         "unexpected way. Choose lapply."))
+  })},
+  "sapply_linter")
 }
 
 
@@ -219,7 +225,8 @@ sapply_linter <- function(source_file) {
 #' (since one whitespace is inserted automatically after
 #' \code{\link[dplyr]{\%>\%}}).
 #' @export
-trailing_whitespaces_linter <- function(source_file) {
+trailing_whitespaces_linter <- function() {
+  Linter(function(source_file) {
 
   ids <- grep("([^(%>%)(#') ] +$)|(%>% {2,})|(#' {2,})$", source_file$file_lines)
   # Space at the end of string
@@ -230,9 +237,9 @@ trailing_whitespaces_linter <- function(source_file) {
          line_number = id,
          column_number = 1L,
          type = "style",
-         message = "Trailing whitespaces.",
-         linter = "trailing_whitespaces_linter")
-  })
+         message = "Trailing whitespaces.")
+  })},
+  "trailing_whitespaces_linter")
 }
 
 

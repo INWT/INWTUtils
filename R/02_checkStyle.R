@@ -8,7 +8,6 @@
 #' @param files character vector: One or more filepaths
 #' @param linters list: Named list of used linter functions
 #' @param ... Arguments passed to \code{\link{selectLinters}}
-#' @inheritParams selectLinters
 #'
 #' @details Per default, the used linters are selected via
 #' \code{\link{selectLinters}}. If you pass a list of linters directly via the
@@ -140,29 +139,29 @@ selectLinters <- function(type = NULL,
 #' General linters
 #' @description Linters used by default
 generalLinters <- function() {
-  list(args_no_default_first_linter = args_no_default_first_linter,
-       assignment_linter = assignment_linter,
-       commas_linter = commas_linter,
-       double_space_linter = double_space_linter,
-       infix_spaces_linter = infix_spaces_linter,
-       internal_function_linter = internal_function_linter,
+  list(args_no_default_first_linter = args_no_default_first_linter(),
+       assignment_linter = assignment_linter(),
+       commas_linter = commas_linter(),
+       double_space_linter = double_space_linter(),
+       infix_spaces_linter = infix_spaces_linter(),
+       internal_function_linter = internal_function_linter(),
        line_length_linter = line_length_linter(100),
-       no_tab_linter = no_tab_linter,
+       no_tab_linter = no_tab_linter(),
        object_length_linter = object_length_linter(30L),
-       sapply_linter = sapply_linter,
+       sapply_linter = sapply_linter(),
        spaces_left_parentheses_linter =
-         spaces_left_parentheses_linter,
-       trailing_blank_lines_linter = trailing_blank_lines_linter,
-       trailing_whitespaces_linter = trailing_whitespaces_linter)
+         spaces_left_parentheses_linter(),
+       trailing_blank_lines_linter = trailing_blank_lines_linter(),
+       trailing_whitespaces_linter = trailing_whitespaces_linter())
 }
 
 
 #' Package function linters
 #' @description Linters for files containing (package) functions
 pkgFunLinters <- function() {
-  list(setwd_linter = setwd_linter,
-       source_linter = source_linter,
-       options_linter = options_linter)
+  list(setwd_linter = setwd_linter(),
+       source_linter = source_linter(),
+       options_linter = options_linter())
 }
 
 

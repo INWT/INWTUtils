@@ -1,22 +1,22 @@
-test_that("selectLinters returns a list of functions", {
+test_that("selectLinters returns a list of Linters", {
 
   erg <- selectLinters()
   expect_type(erg, "list")
-  expect_true(lapply(erg, function(x) class(x) == "function") %>%
+  expect_true(lapply(erg, function(x) class(x) == "linter") %>%
                 unlist %>% all)
   rm(erg)
 
   erg <- selectLinters("pkgFuns")
   expect_type(erg, "list")
   expect_true(lapply(erg,
-                     function(x) class(x) == "function") %>%
+                     function(x) class(x) == "linter") %>%
                 unlist %>% all)
   rm(erg)
 
   erg <- selectLinters("script")
   expect_type(erg, "list")
   expect_true(lapply(erg,
-                     function(x) class(x) == "function") %>%
+                     function(x) class(x) == "linter") %>%
                 unlist %>% all)
   rm(erg)
 
@@ -65,7 +65,7 @@ test_that("selectLinters: arguments addLinters and exludeLinters", {
   rm(erg, excl)
 
   # Add linters
-  add <- c(absolute_paths_linter = absolute_paths_linter,
+  add <- c(absolute_path_linter = absolute_path_linter,
            object_usage_linter = object_usage_linter)
   erg <- selectLinters(addLinters = add)
   expect_equal(names(erg) %>% sort,
@@ -75,7 +75,7 @@ test_that("selectLinters: arguments addLinters and exludeLinters", {
   rm(erg)
 
   # Combination: exclude and add linters
-  excl <- c("assignment_linter", "absolute_paths_linter")
+  excl <- c("assignment_linter", "absolute_path_linter")
   erg <- selectLinters(excludeLinters = excl, addLinters = add)
   expect_equal(names(erg) %>% sort,
                # nolint start
