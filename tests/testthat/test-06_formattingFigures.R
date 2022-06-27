@@ -1,5 +1,3 @@
-context("Functions to make nicer numbers")
-
 test_that("makePct is working with different inputs", {
   res1 <- makePct(0.25)
   res2 <- makePct(-1.251, percSymbol = FALSE)

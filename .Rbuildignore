@@ -1,8 +1,5 @@
 ^.+\.Rproj$
 ^\.Rproj\.user$
-^libWin$
-^libLinux$
-^libMac$
 ^prepareRepo.R$
 ^blogEntry_.*\.Rmd$
 ^\.lintr$

@@ -3,7 +3,7 @@
 # help: https://github.com/INWTlab/r-docker
 #
 # Author: Sebastian Warnholz
-FROM inwt/r-batch:3.6.0
+FROM inwt/r-batch:4.2.0
 
 ADD . .
 

@@ -1,6 +1,3 @@
-context("Package code style")
-
-
 test_that("Code is lint-free", {
   res_r <- lintr::lint_dir("R", linters = selectLinters())
   expect_length(res_r, 0)

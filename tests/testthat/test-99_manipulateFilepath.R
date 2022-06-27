@@ -1,5 +1,3 @@
-context("Controlling backslashes at the end of filepaths")
-
 # nolint start
 test_that("addBackslash", {
   expect_equal(INWTUtils:::addBackslash("pathWith/"), "pathWith/")
