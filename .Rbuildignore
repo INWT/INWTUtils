@@ -5,3 +5,4 @@
 ^\.lintr$
 ^Jenkinsfile$
 ^Dockerfile$
+^\.dockerignore$
