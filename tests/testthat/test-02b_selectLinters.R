@@ -1,4 +1,4 @@
-test_that("selectLinters returns a list of Linters", {
+test_that("selectLinters returns a list of linters", {
 
   erg <- selectLinters()
   expect_type(erg, "list")
