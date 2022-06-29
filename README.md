@@ -11,8 +11,7 @@ clean. In addition, an example R script is included.
 When you start a new project in R, you usually first need a particular file
 structure.
 This includes certain folders, maybe the structure for an R package including
-some basic tests, and several configuration files (e.g., a .gitignore, an
-.Rprofile, ...).
+some basic tests, and several configuration files (e.g., a .gitignore).
 You could create this structure from scratch every time, or copy it from an
 existing project (followed by deleting all the unnecessary files from the old
 project and realizing that you still did not catch the latest version of some
