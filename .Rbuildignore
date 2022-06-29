@@ -6,3 +6,5 @@
 ^Jenkinsfile$
 ^Dockerfile$
 ^\.dockerignore$
+^doc$
+^Meta$
