@@ -12,4 +12,5 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get autoclean -y \
     && rm -rf /var/lib/apt/lists/* \
-    && installPackage
+    && installPackage \
+    && R -e "install.packages('rmarkdown')"
