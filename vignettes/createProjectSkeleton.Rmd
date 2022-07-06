@@ -10,19 +10,14 @@ vignette: >
 ---
 
 When you start a new project in R, you usually first need a particular file
-strucure.
+structure.
 This includes certain folders, maybe the structure for an R package including
-some basic tests, and several configuration files (e.g., a .gitignore, an
-.Rprofile, ...).
-You could create this structure from scratch everytime, or copy it from an
+some basic tests, and several configuration files (e.g., a .gitignore).
+You could create this structure from scratch every time, or copy it from an
 existing project (followed by deleting all the unnecessary files from the old
 project and realizing that you still did not catch the latest version of some
 file). An easier way is to do it with the function `createProjectSkeleton()`
 from the `INWTUtils` package.
-
-This furthermore enables working in a sandbox, i.e. you can play around without 
-running into danger of destroying something outside our project (for details see
-section 4).
 
 
 ## 1 Usage of `createProjectSkeleton`
@@ -51,17 +46,10 @@ The purposes of the folders are mostly obvious:
 
 - *data*: all data, original or modified, e.g., .Rdata, .csv,
 or .xlsx files.
-- *libLinux* and *libWin* are folders where packages will be
-  installed (see also section 4). They already contain a .gitignore file
-  ignoring everything except itself. Thus the folders can be pushed to gitHub
-  in an empty form. If someone else clones your project, she already has these
-  folders on her computer and can install packages into them.
 - *reports* will contain R Markdown reports.
 - *RScrips* is for your scripts. It already contains an example script to
   demonstrate a useful script structure.
 
-The *.RProfile* is required for working in a sandbox (for details see section
-4).
 Finally the *myfolder.Rproj* file has been created. It is automatically named 
 after the superordinate folder. This .Rproject file is already filled with
 useful preferences, e.g. not saving and restoring the R workspace, not saving
@@ -102,7 +90,7 @@ shown in figure 2:
 ```{r, echo, eval = FALSE}
 createProjectSkeleton(dir = "playWith",
                       pkgName = "playPkg",
-                      pkgFolder = "." # Default, could be left out
+                      pkgFolder = ".", # Default, could be left out
                       rProject = FALSE,
                       exampleScript = FALSE)
 ```
@@ -115,8 +103,7 @@ in the project directory:
 - The folder *R* for R files containing the package functions
 - A folder *tests* (already containing one test)
 - An *.Rbuildignore*: This file specifies files to be ignored when building the
-  package. It includes *.Rproj* files, *.Rproj.user* folders, the folders *libWin* and
-  *libLinux* as well as *RScripts*.
+  package. It includes *.Rproj* files, *.Rproj.user* folders, and *RScripts*.
 - The *DESCRIPTION* file contains your package name and the imports 
   lintr (for the test) and INWTUtils. All other information must be
   added by hand, e.g., your name and email adress.
@@ -144,41 +131,3 @@ in the *DESCRIPTION* file.
 specifiy if the project contains a package (logical argument `pkg`), the folder
 where the package lives (argument `pkgFolder`), and, of course, the directory
 where the .Rproject file is created (argument `dir`).
-
-
-## 4 Working in a sandbox
-
-As mentioned above, `createProjectSkeleton` makes working in a sandbox possible.
-You can also add only the sandbox infrastructure via `useSandbox()`.
-
-### What does that mean?
-
-Working in a sandbox means that you can play around without affecting the world
-outside your project.
-For example, you may want to add features to a package installed in your user
-library.
-At the same time you still need a working version of the  package which you can
-use in other projects.
-Therefore, you don't want to build the package into the user library during the
-development.
-
-By working with the structure created by `createProjectSkeleton`, all packages
-you build or install within a project are installed into *libWin* or *libLinux*
-(depending on your operating system) by default. The otherwise default library,
-e.g., the user library, stays unaffected.
-
-This is of an even bigger importance if you have a shared library for the whole
-team on a network drive. Of course you don't want to bother their work when
-working on the package.
-
-
-### How does that work?
-
-R knows several library paths where it installs new packages. You can display
-them via `.libPaths()`. The first path is the default path.
-
-The *.Rprofile* file is always sourced first when you open R. The *.Rprofile*
-created here simply contains a function adding the folder *libWin* resp.
-*libLinux* to the first position of the lib path. As a result, R installs all
-packages into this folder by default, even if the package you're installing is
-already installed in another lib path.

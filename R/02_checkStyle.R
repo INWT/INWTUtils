@@ -8,7 +8,6 @@
 #' @param files character vector: One or more filepaths
 #' @param linters list: Named list of used linter functions
 #' @param ... Arguments passed to \code{\link{selectLinters}}
-#' @inheritParams selectLinters
 #'
 #' @details Per default, the used linters are selected via
 #' \code{\link{selectLinters}}. If you pass a list of linters directly via the
@@ -24,7 +23,7 @@
 #'                     "  2*x + 1",
 #'                     "}",
 #'                     "",
-#'                     paste0("# This  line containts  double spaces and is ",
+#'                     paste0("# This  line contains  double spaces and is ",
 #'                            "very long. The following lines will use = ",
 #'                            "instead of <- and access an internal INWT ",
 #'                            "function."),
@@ -64,7 +63,7 @@ checkStyle <- function(files,
 #'
 #' @details The following linters are always included:
 #' \itemize{
-#'   \item\code{\link[INWTUtils]{args_without_default_first_linter}},
+#'   \item\code{\link[INWTUtils]{args_no_default_first_linter}},
 #'   \item\code{\link[lintr]{assignment_linter}},
 #'   \item\code{\link[lintr]{commas_linter}},
 #'   \item\code{\link[INWTUtils]{double_space_linter}},
@@ -100,7 +99,7 @@ checkStyle <- function(files,
 #' @examples
 #' selectLinters(type = "script",
 #'             excludeLinters = c("object_length_linter",
-#'                                "args_without_default_first_linter"),
+#'                                "args_no_default_first_linter"),
 #'             addLinters = list(setwd_l = setwd_linter,
 #'                               source_l = source_linter))
 #'
@@ -116,7 +115,6 @@ checkStyle <- function(files,
 #'     paste0("  \\item\\code{\\link[", packages, "]{", linterNames, "}}",
 #'            collapse = ",\n#' "), "\n#' }")
 #' # nolint end
-
 #'
 #' @export
 #'
@@ -141,30 +139,29 @@ selectLinters <- function(type = NULL,
 #' General linters
 #' @description Linters used by default
 generalLinters <- function() {
-  list(args_without_default_first_linter =
-         args_without_default_first_linter,
-       assignment_linter = assignment_linter,
-       commas_linter = commas_linter,
-       double_space_linter = double_space_linter,
-       infix_spaces_linter = infix_spaces_linter,
-       internal_function_linter = internal_function_linter,
+  list(args_no_default_first_linter = args_no_default_first_linter(),
+       assignment_linter = assignment_linter(),
+       commas_linter = commas_linter(),
+       double_space_linter = double_space_linter(),
+       infix_spaces_linter = infix_spaces_linter(),
+       internal_function_linter = internal_function_linter(),
        line_length_linter = line_length_linter(100),
-       no_tab_linter = no_tab_linter,
+       no_tab_linter = no_tab_linter(),
        object_length_linter = object_length_linter(30L),
-       sapply_linter = sapply_linter,
+       sapply_linter = sapply_linter(),
        spaces_left_parentheses_linter =
-         spaces_left_parentheses_linter,
-       trailing_blank_lines_linter = trailing_blank_lines_linter,
-       trailing_whitespaces_linter = trailing_whitespaces_linter)
+         spaces_left_parentheses_linter(),
+       trailing_blank_lines_linter = trailing_blank_lines_linter(),
+       trailing_whitespaces_linter = trailing_whitespaces_linter())
 }
 
 
 #' Package function linters
 #' @description Linters for files containing (package) functions
 pkgFunLinters <- function() {
-  list(setwd_linter = setwd_linter,
-       source_linter = source_linter,
-       options_linter = options_linter)
+  list(setwd_linter = setwd_linter(),
+       source_linter = source_linter(),
+       options_linter = options_linter())
 }
 
 

@@ -5,9 +5,6 @@
 #'   \item data (folder)
 #'   \item reports (folder)
 #'   \item rScripts (folder)
-#'   \item libWin (folder) containing .gitginore
-#'   \item libLinux (folder) containing .gitginore
-#'   \item .Rprofile
 #'   \item .Rproj (optional; created with \code{\link{createProject}})
 #' }
 #' The infrastructure for a package can also be added optionally (created with
@@ -49,8 +46,6 @@ createProjectSkeleton <- function(dir = ".",
   message(paste0("Creating directories: ", paste0(folders, collapse = ", ")))
   lapply(paste0(dir, folders), dir.create)
 
-  useSandbox(dir)
-
   if (exampleScript) {
     message("Writing example script")
     copyFile(dir, "exampleScript.R", "RScripts")
@@ -77,38 +72,6 @@ createProjectSkeleton <- function(dir = ".",
   writeLines(text = checkingScript,
              con = paste0(dir, "RScripts/00_checkCodeStyle.R"))
 
-}
-
-
-#' Create a sandbox environment for package installation
-#'
-#' @description The following steps are taken:
-#' \itemize{
-#'   \item Create folders libWin, libLinux, libMac
-#'   \item Write .gitignore into these folders so they can be commited without
-#'   any real content
-#'   \item Write .RProfile telling R to install and look for packages in libWin
-#'   resp. libLinux by default
-#'  }
-#'
-#' @param dir Project directory
-#'
-#' @export
-#'
-useSandbox <- function(dir) {
-
-  dir <- addBackslash(dir)
-  folders <- c("libWin", "libLinux", "libMac")
-
-  message(paste0("Creating directories: ", paste0(folders, collapse = ", ")))
-  lapply(paste0(dir, folders), dir.create)
-
-  message("Writing .gitignore")
-  lapply(paste0(folders, "/.gitignore"),
-         function(x) copyFile(dir, "gitignore", x))
-
-  message("Writing .Rprofile")
-  copyFile(dir, "Rprofile", ".Rprofile")
 }
 
 

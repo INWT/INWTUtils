@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_additionalLinters.R
 \name{INWTLinters}
 \alias{INWTLinters}
-\alias{args_without_default_first_linter}
+\alias{args_no_default_first_linter}
 \alias{double_space_linter}
 \alias{internal_function_linter}
 \alias{setwd_linter}
@@ -12,24 +12,21 @@
 \alias{trailing_whitespaces_linter}
 \title{INWT's own linters}
 \usage{
-args_without_default_first_linter(source_file)
+args_no_default_first_linter()
 
-double_space_linter(source_file)
+double_space_linter()
 
-internal_function_linter(source_file)
+internal_function_linter()
 
-setwd_linter(source_file)
+setwd_linter()
 
-source_linter(source_file)
+source_linter()
 
-options_linter(source_file)
+options_linter()
 
-sapply_linter(source_file)
+sapply_linter()
 
-trailing_whitespaces_linter(source_file)
-}
-\arguments{
-\item{source_file}{returned by \code{\link[lintr]{get_source_expressions}}}
+trailing_whitespaces_linter()
 }
 \description{
 Linters added by INWT. Usually not called directly but used
@@ -37,7 +34,7 @@ with \code{\link[lintr]{lint}}.
 }
 \section{Functions}{
 \itemize{
-\item \code{args_without_default_first_linter}: Arguments without default values should come before
+\item \code{args_no_default_first_linter}: Arguments without default values should come before
 arguments with default values.
 
 \item \code{double_space_linter}: Are there double whitespaces?
@@ -87,7 +84,7 @@ writeLines(con = "lintExample.txt",
                     "print(INWTUtils:::scriptLinters())"))
 # nolint end
 lintr::lint("lintExample.txt",
-     linters = list(argsWithoutDefault = args_without_default_first_linter,
+     linters = list(argsWithoutDefault = args_no_default_first_linter,
                     doubeWhitespace = double_space_linter,
                     sourceLinter = source_linter))
 }

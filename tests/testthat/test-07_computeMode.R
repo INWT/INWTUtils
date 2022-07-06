@@ -1,5 +1,3 @@
-context("Function to compute mode")
-
 if (interactive()) library(testthat)
 
 test_that("Mode is computed correctly", {

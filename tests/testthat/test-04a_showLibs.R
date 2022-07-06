@@ -1,5 +1,3 @@
-context("showLibs")
-
 test_that("showLibs returns correct type", {
   expect_equal(showLibs("pkgDoesNotExist123"),
                list(pkgDoesNotExist123 = "Package not installed"))

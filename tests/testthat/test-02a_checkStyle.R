@@ -1,5 +1,3 @@
-context("Function checkStyle()")
-
 test_that("checkStyle returns correct type", {
   testFile <- system.file("testScript_checkStyle.R", package = "INWTUtils")
   expect_true(file.exists(testFile))
@@ -25,7 +23,7 @@ test_that("checkStyle returns correct content", {
   expect_true(erg[[5]]$message == "Double whitespace.")
   expect_true(erg[[6]]$message == "Put spaces around all infix operators.")
   expect_true(erg[[7]]$message ==
-                "lines should not be more than 100 characters.")
+                "Lines should not be more than 100 characters.")
   expect_true(erg[[8]]$message == paste("Variable and function names should",
                                         "not be longer than 30 characters."))
   expect_true(erg[[9]]$message == paste("Internal functions (addressed via",
