@@ -36,9 +36,6 @@ Creates a useful file and folder structure. This includes:
   \item data (folder)
   \item reports (folder)
   \item rScripts (folder)
-  \item libWin (folder) containing .gitginore
-  \item libLinux (folder) containing .gitginore
-  \item .Rprofile
   \item .Rproj (optional; created with \code{\link{createProject}})
 }
 The infrastructure for a package can also be added optionally (created with

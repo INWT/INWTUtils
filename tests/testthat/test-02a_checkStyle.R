@@ -1,5 +1,3 @@
-context("Function checkStyle()")
-
 test_that("checkStyle returns correct type", {
   testFile <- system.file("testScript_checkStyle.R", package = "INWTUtils")
   expect_true(file.exists(testFile))

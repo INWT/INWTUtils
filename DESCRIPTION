@@ -1,6 +1,6 @@
 Package: INWTUtils
 Title: Utility functions used by INWT
-Version: 1.0.7
+Version: 1.1.0
 Authors@R: c(person("Mira Celine", "Klein",
     email = "mira.klein@inwt-statistics.de", role = c("aut", "cre")),
     person("Andreas", "Neudecker",
@@ -13,11 +13,11 @@ Description: This package provides several useful functions for the work with
 Depends:
     R (>= 3.5)
 Imports:
-    devtools (>= 1.13.5),
-    lintr (>= 1.0.2),
-    magrittr (>= 1.5.0),
-    readr (>= 1.1.1),
-    usethis (>= 1.5.0)
+    devtools (>= 2.4.3),
+    lintr (>= 3.0.0),
+    magrittr (>= 2.0.3),
+    readr (>= 2.1.2),
+    usethis (>= 2.1.5)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

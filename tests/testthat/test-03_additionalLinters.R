@@ -1,5 +1,3 @@
-context("INWT's own linter functions")
-
 test_that("args_no_default_first_linter", {
   testFile <- system.file("testScript_args_without_default.R", package = "INWTUtils")
   expect_true(file.exists(testFile))

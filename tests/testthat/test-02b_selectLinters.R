@@ -1,5 +1,3 @@
-context("Function returning a list of linters")
-
 test_that("selectLinters returns a list of linters", {
 
   erg <- selectLinters()
