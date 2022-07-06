@@ -11,17 +11,23 @@ pipeline {
         CUR_PKG_FOLDER = '.' // defaults to root
         INWT_REPO = 'inwt-vmdocker1.inwt.de:8081'
         EMAIL = 'mira.klein@inwt-statistics.de'
+        TMP_SUFFIX = """${sh(returnStdout: true, script: 'echo `cat /dev/urandom | tr -dc \'a-z\' | fold -w 6 | head -n 1`')}"""
     }
     stages {
-        stage('Testing with R') {
+        stage('Build Docker image for testing') {
             agent { label 'test' }
             when { not { branch 'depl' } }
-            environment {
-                TMP_SUFFIX = """${sh(returnStdout: true, script: 'echo `cat /dev/urandom | tr -dc \'a-z\' | fold -w 6 | head -n 1`')}"""
-            }
             steps {
                 sh '''
                 docker build --pull -t tmp-$CUR_PROJ-$TMP_SUFFIX .
+                '''
+            }
+        }
+        stage('Testing with R') {
+            agent { label 'test' }
+            when { not { branch 'depl' } }
+            steps {
+                sh '''
                 docker run --rm --network host tmp-$CUR_PROJ-$TMP_SUFFIX check
                 docker rmi tmp-$CUR_PROJ-$TMP_SUFFIX
                 '''
