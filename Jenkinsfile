@@ -3,19 +3,18 @@
 // Author: Sebastian Warnholz
 // Modified by: Andreas Neudecker
 pipeline {
-    agent none
+    agent { label 'limit-s' }
     options { disableConcurrentBuilds() }
     environment {
-        CUR_PROJ = 'inwt-utils' //
-        CUR_PKG = 'INWTUtils' // r-package name
-        CUR_PKG_FOLDER = '.' // defaults to root
+        CUR_PROJ = 'inwt-utils'
+        CUR_PKG = 'INWTUtils'
+        CUR_PKG_FOLDER = '.'
         INWT_REPO = 'inwt-vmdocker1.inwt.de:8081'
         EMAIL = 'mira.klein@inwt-statistics.de'
         TMP_SUFFIX = """${sh(returnStdout: true, script: 'echo `cat /dev/urandom | tr -dc \'a-z\' | fold -w 6 | head -n 1`')}"""
     }
     stages {
         stage('Build Docker image for testing') {
-            agent { label 'test' }
             when { not { branch 'depl' } }
             steps {
                 sh '''
@@ -24,7 +23,6 @@ pipeline {
             }
         }
         stage('Testing with R') {
-            agent { label 'test' }
             when { not { branch 'depl' } }
             steps {
                 sh '''
