@@ -6,7 +6,7 @@ pipeline {
     agent none
     options { disableConcurrentBuilds() }
     environment {
-        CUR_PROJ = 'inwt-utils' // 
+        CUR_PROJ = 'inwt-utils' //
         CUR_PKG = 'INWTUtils' // r-package name
         CUR_PKG_FOLDER = '.' // defaults to root
         INWT_REPO = 'inwt-vmdocker1.inwt.de:8081'
@@ -44,6 +44,7 @@ pipeline {
             steps {
                 sh '''
                 docker pull $INWT_REPO/$CUR_PROJ:latest
+                docker run --rm --network host -v $PWD:/app --user `id -u`:`id -g` $INWT_REPO/$CUR_PROJ:latest R -e "install.packages('knitr')"
                 docker run --rm --network host -v $PWD:/app --user `id -u`:`id -g` $INWT_REPO/$CUR_PROJ:latest R CMD build $CUR_PKG_FOLDER
                 docker run --rm -v $PWD:/app -v /var/www/html/r-repo:/var/www/html/r-repo inwt/r-batch:latest R -e "drat::insertPackage(dir(pattern='.tar.gz'), '/var/www/html/r-repo'); drat::archivePackages(repopath = '/var/www/html/r-repo')"
                 docker rmi $INWT_REPO/$CUR_PROJ:latest
