@@ -2,7 +2,6 @@
 % Please edit documentation in R/03_additionalLinters.R
 \name{INWTLinters}
 \alias{INWTLinters}
-\alias{args_no_default_first_linter}
 \alias{double_space_linter}
 \alias{internal_function_linter}
 \alias{setwd_linter}
@@ -12,8 +11,6 @@
 \alias{trailing_whitespaces_linter}
 \title{INWT's own linters}
 \usage{
-args_no_default_first_linter()
-
 double_space_linter()
 
 internal_function_linter()
@@ -34,39 +31,36 @@ with \code{\link[lintr]{lint}}.
 }
 \section{Functions}{
 \itemize{
-\item \code{args_no_default_first_linter}: Arguments without default values should come before
-arguments with default values.
+\item \code{double_space_linter()}: Are there double whitespaces?
 
-\item \code{double_space_linter}: Are there double whitespaces?
-
-\item \code{internal_function_linter}: Internal functions should not be used since there is
+\item \code{internal_function_linter()}: Internal functions should not be used since there is
 in general a reason why they have not been exported by the package author.
 They may not have been tested outside the context of the function they are
 used in.
 
-\item \code{setwd_linter}: Changing the working directory in package functions
+\item \code{setwd_linter()}: Changing the working directory in package functions
 can have unexpected side effects. (only for package functions)
 
-\item \code{source_linter}: Sourcing files in package functions can have
+\item \code{source_linter()}: Sourcing files in package functions can have
 unexpected side effects. (only for package functions)
 
-\item \code{options_linter}: Changing options in package functions can have
+\item \code{options_linter()}: Changing options in package functions can have
 unexpected side effects and is not visible from the outside. (only for
 package functions)
 
-\item \code{sapply_linter}: The automatic simplification performed by
+\item \code{sapply_linter()}: The automatic simplification performed by
 \code{\link[base]{sapply}} introduces uncertainty. If the input changes, the
 output can change unexpectedly and the code crashes. Replace it with
 \code{\link[base]{sapply}}. If you use \code{sapply} with
 \code{simplify = FALSE}, it is equivalent to \code{lapply} anyway.
 
-\item \code{trailing_whitespaces_linter}: Trailing whitespaces are superfluos. In contrast to
+\item \code{trailing_whitespaces_linter()}: Trailing whitespaces are superfluos. In contrast to
 \code{\link[lintr]{trailing_whitespace_linter}}, this function detects
 whitespaces after \code{\link[dplyr]{\%>\%}} only if there are at least two
 (since one whitespace is inserted automatically after
 \code{\link[dplyr]{\%>\%}}).
-}}
 
+}}
 \examples{
 \dontrun{
 writeLines(con = "lintExample.txt",
@@ -84,7 +78,7 @@ writeLines(con = "lintExample.txt",
                     "print(INWTUtils:::scriptLinters())"))
 # nolint end
 lintr::lint("lintExample.txt",
-     linters = list(argsWithoutDefault = args_no_default_first_linter,
+     linters = list(argsWithoutDefault = function_argument_linter,
                     doubeWhitespace = double_space_linter,
                     sourceLinter = source_linter))
 }

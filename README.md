@@ -223,7 +223,7 @@ For example:
 checkStyle(files = c("badStyle1.R", "badStyle2.R"),
            type = "script",
            excludeLinters = c("object_length_linter",
-                              "args_no_default_first_linter"),
+                              "function_argument_linter"),
            addLinters = list(setwd_linter = setwd_linter,
                              a = source_linter))
 ```
@@ -233,7 +233,7 @@ checkStyle(files = c("badStyle1.R", "badStyle2.R"),
 
 The following linters are used by default:
 
-- args_no_default_first_linter
+- function_argument_linter
 
 - assignment_linter
 
@@ -273,7 +273,7 @@ If `type = "pkgFuns"`, the following linters are added:
 
 The following linters stem from the `INWTUtils` package:
 
-`args_no_default_first_linter` checks if arguments without default value
+`function_argument_linter` checks if arguments without default value
 are listed before arguments with default value in function definitions.
 
 `double_space_linter` checks for double empty spaces.

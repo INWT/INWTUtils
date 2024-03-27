@@ -1,14 +1,14 @@
-test_that("args_no_default_first_linter", {
+test_that("function_argument_linter", {
   testFile <- system.file("testScript_args_without_default.R", package = "INWTUtils")
   expect_true(file.exists(testFile))
   erg <- lint(testFile,
-              linters = list(args_no_default_first_linter()))
+              linters = list(function_argument_linter()))
   expect_equal(lapply(erg, function(lint) lint$line_number) %>% unlist,
                c(9, 13, 15, 19, 23, 26, 29, 33))
 })
 
 
-test_that("args_no_default_first_linter (only within line)", {
+test_that("function_argument_linter (only within line)", {
   # nolint start
   inputWrong <- list(filename = "An example object",
                      file_lines = c("function(arg1 = TRUE, arg2)",
@@ -26,13 +26,13 @@ test_that("args_no_default_first_linter (only within line)", {
                                       "function(arg1, arg2)",
                                       "function(arg1, arg2 = 1, ...)",
                                       "function(arg1 = TRUE, ...)"))
-  expect_true(lapply(args_no_default_first_linter()(inputWrong),
+  expect_true(lapply(function_argument_linter()(inputWrong),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(args_no_default_first_linter()(inputWrong) %>% length,
+  expect_equal(function_argument_linter()(inputWrong) %>% length,
                inputWrong$file_lines %>% length)
-  expect_true(lapply(args_no_default_first_linter()(inputCorrect),
+  expect_true(lapply(function_argument_linter()(inputCorrect),
                      function(x) class(x) == "lint") %>% unlist %>% all)
-  expect_equal(args_no_default_first_linter()(inputCorrect) %>% length, 0)
+  expect_equal(function_argument_linter()(inputCorrect) %>% length, 0)
 })
 
 

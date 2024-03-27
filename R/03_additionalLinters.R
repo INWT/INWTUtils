@@ -21,62 +21,12 @@
 #'                     "print(INWTUtils:::scriptLinters())"))
 #' # nolint end
 #' lintr::lint("lintExample.txt",
-#'      linters = list(argsWithoutDefault = args_no_default_first_linter,
+#'      linters = list(argsWithoutDefault = function_argument_linter,
 #'                     doubeWhitespace = double_space_linter,
 #'                     sourceLinter = source_linter))
 #' }
 #'
 NULL
-
-
-#' @describeIn INWTLinters Arguments without default values should come before
-#' arguments with default values.
-#' @export
-args_no_default_first_linter <- function() {
-
-  Linter(function(source_file) {
-
-  pattern <- paste0("function\\([^\\)]*[A-z0-9_\\. '\"]+=[A-z0-9_\\. '\"]+,",
-                    "[ ]*",
-                    "[A-z0-9_\\. '\"]+[^(\\.\\.\\.)][\\),]+")
-  ## Argument with default value
-  # String "function("
-  # Any number of characters which are not ")"
-  # At least one character of A-z, 0-9, "_", ".", space, and quotes (name of an
-    # argument)
-  # Exaclty one "="
-  # Default value of the argument
-  # Comma separating this argument from the next one
-  ## Arbitrary number of spaces
-  ## Argument without default value
-  # Name of an argument
-  # NOT "..." (since this would be allowed)
-  # Closing bracket or comma (without having defined a default value)
-
-  # Problems within lines
-  idsWithin <- grep(pattern, source_file$file_lines)
-
-  # Problems over two lines
-  pastedText <- lapply(1:(length(source_file$file_lines) - 1),
-                       function(x) paste(source_file$file_lines[x],
-                                         source_file$file_lines[x + 1]))
-
-  idsMult <- grep(pattern, pastedText)
-
-  # Remove double-counted problems
-  ids <- c(idsWithin, setdiff(idsMult, c(idsWithin - 1))) %>% unique
-
-  lapply(ids, function(id) {
-    Lint(filename = source_file$filename,
-         line_number = id,
-         column_number = 1L,
-         type = "style",
-         message = "Arguments without default value should be listed before
-         arguments with default value.")
-  })},
-  "args_no_default_first_linter")
-}
-
 
 #' @describeIn INWTLinters Are there double whitespaces?
 #' @export

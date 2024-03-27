@@ -33,7 +33,7 @@ included by default, file type, or \code{addLinters}.
 \details{
 The following linters are always included:
 \itemize{
-  \item\code{\link[INWTUtils]{args_no_default_first_linter}},
+  \item\code{\link[lintr]{function_argument_linter}},
   \item\code{\link[lintr]{assignment_linter}},
   \item\code{\link[lintr]{commas_linter}},
   \item\code{\link[INWTUtils]{double_space_linter}},
@@ -61,8 +61,7 @@ The following linters are only included if \code{type = "script"}:
 }
 \examples{
 selectLinters(type = "script",
-            excludeLinters = c("object_length_linter",
-                               "args_no_default_first_linter"),
+            excludeLinters = c("object_length_linter", "function_argument_linter"),
             addLinters = list(setwd_l = setwd_linter,
                               source_l = source_linter))
 

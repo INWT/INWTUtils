@@ -1,5 +1,5 @@
 # This script contains an example to test the checkStyle function.
-f1 <- function(x = 3, y) NULL # args_no_default_first_linter
+f1 <- function(x = 3, y) NULL # function_argument_linter
 a = 2 # assignment_linter
 b <- c(a,2) # commas_linter
 c <-  1:5 # double_space_linter
